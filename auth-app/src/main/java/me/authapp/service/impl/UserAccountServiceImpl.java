@@ -7,6 +7,7 @@ import me.authapp.entity.UserEntity;
 import me.authapp.repository.UserRepository;
 import me.authapp.service.UserAccountService;
 import me.authapp.util.EncodeDecodeUtil;
+import me.authapp.util.TokenUtil;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 
@@ -24,6 +25,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         UserEntity userEntity = new UserEntity();
         userEntity.setName(payload.getName());
         userEntity.setLogin(payload.getLogin());
+        userEntity.setToken(TokenUtil.generateGuestToken());
         userEntity.setPassword(EncodeDecodeUtil.encodePassword(payload.getPassword()));
         userEntity.setCreatedAt(LocalDate.now());
 

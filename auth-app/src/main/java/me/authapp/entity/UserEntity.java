@@ -24,6 +24,9 @@ public class UserEntity {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "token")
+    private String token;
+
     @Column(name = "create_at")
     private LocalDate createdAt;
 
