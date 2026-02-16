@@ -15,14 +15,21 @@ public class UserEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 
-    @Column(name = "login")
+    @Column(name = "login", unique = true)
     private String login;
 
     @Column(name = "password")
     private String password;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id")
+    private RoleEntity roleEntity;
+
+    @Column(name = "token")
+    private String token;
 
     @Column(name = "create_at")
     private LocalDate createdAt;
@@ -38,17 +45,11 @@ public class UserEntity {
     public UserEntity(
             String name,
             String login,
-            String password,
-            LocalDate createdAt,
-            LocalDate deletedAt
+            String password
     ) {
         this.name = name;
         this.login = login;
         this.password = password;
-        this.createdAt = createdAt;
-        this.updatedAt = LocalDate.now();
-        this.deletedAt = deletedAt;
+        this.createdAt = LocalDate.now();
     }
 }
-
-

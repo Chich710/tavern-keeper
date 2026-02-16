@@ -1,9 +1,8 @@
 package me.authapp.controller;
 
 import lombok.RequiredArgsConstructor;
-import me.authapp.dto.request.UserRegistrationRequestDto;
-import me.authapp.entity.UserEntity;
-import me.authapp.service.UserAccountService;
+import me.authapp.dto.request.AuthorizationRequestDto;
+import me.authapp.service.AccountService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
-    private final UserAccountService userAccountService;
+    private final AccountService accountService;
 
-    @PostMapping("/register")
-    public UserEntity register(@RequestBody UserRegistrationRequestDto payload) {
-        return userAccountService.register(payload);
-    }
+    @PostMapping("/login")
+    public void login(@RequestBody AuthorizationRequestDto payload) { accountService.login(payload); }
 }
