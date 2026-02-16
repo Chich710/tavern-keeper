@@ -4,11 +4,9 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class TokenUtil {
-    public static String generateGuestToken() {
+    public static String generateGuestToken(String role) {
         UUID randomUUuid = UUID.randomUUID();
-        String finalUniqueToken = randomUUuid + "|" +
-//                role +
-                "|" + LocalDate.now().plusDays(1);
+        String finalUniqueToken = randomUUuid + "|" + role + "|" + LocalDate.now().plusDays(1);
 
         return finalUniqueToken;
     }
