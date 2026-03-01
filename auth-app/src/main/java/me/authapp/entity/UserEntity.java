@@ -31,7 +31,7 @@ public class UserEntity {
     @Column(name = "token")
     private String token;
 
-    @Column(name = "create_at")
+    @Column(name = "created_at")
     private LocalDate createdAt;
 
     @Column(name = "updated_at")
