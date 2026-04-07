@@ -16,7 +16,6 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
-//@Builder TODO: разобраться с этой вариацией без getter setter
 @Getter
 @Setter
 @Table(name = "apartments")

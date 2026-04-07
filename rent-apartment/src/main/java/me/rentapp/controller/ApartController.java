@@ -4,11 +4,13 @@ import lombok.RequiredArgsConstructor;
 import me.rentapp.dto.ApartCreateRequestDto;
 import me.rentapp.dto.ApartResponseDto;
 import me.rentapp.service.ApartService;
+import me.rentapp.service.TestService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 
 @RestController
@@ -16,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApartController {
     private final ApartService apartService;
+    private final TestService testService;
 
     @PostMapping("/create")
     public ApartResponseDto create(@RequestBody ApartCreateRequestDto payload) {
@@ -25,5 +28,10 @@ public class ApartController {
     @GetMapping("/list")
     public List<ApartResponseDto> getList() {
         return apartService.getList();
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return testService.test();
     }
 }

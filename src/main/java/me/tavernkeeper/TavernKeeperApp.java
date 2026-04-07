@@ -1,11 +1,13 @@
-package me.rentapp;
+package me.tavernkeeper;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RentApartmentApplication {
+public class TavernKeeperApp {
+
     public static void main(String[] args) {
-        SpringApplication.run(RentApartmentApplication.class, args);
+        SpringApplication.run(TavernKeeperApp.class, args);
     }
+
 }
