@@ -2,9 +2,7 @@ package me.authapp.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import me.authapp.dto.request.AuthorizationRequestDto;
-import me.authapp.dto.request.UserRegistrationRequestDto;
 import me.authapp.entity.UserEntity;
-import me.authapp.mapper.UserMapper;
 import me.authapp.repository.UserRepository;
 import me.authapp.service.AccountService;
 import me.authapp.util.EncodeDecodeUtil;

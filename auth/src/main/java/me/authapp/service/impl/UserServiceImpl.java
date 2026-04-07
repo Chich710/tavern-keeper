@@ -11,6 +11,7 @@ import me.authapp.repository.RoleRepository;
 import me.authapp.repository.UserRepository;
 import me.authapp.service.UserService;
 import org.springframework.stereotype.Service;
+
 import static me.authapp.exeption.UserException.ROLE_DOES_NOT_EXIST;
 
 @Service

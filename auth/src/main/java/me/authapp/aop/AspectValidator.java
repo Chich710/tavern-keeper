@@ -3,8 +3,8 @@ package me.authapp.aop;
 import lombok.extern.slf4j.Slf4j;
 import me.authapp.dto.request.UserRegistrationRequestDto;
 import me.authapp.exeption.UserException;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,7 +15,6 @@ public class AspectValidator {
     private static final String LOGIN_PATTERN = "^[a-zA-Z_\\-]+$";
     private static final String PASSWORD_PATTERN = ".*[A-Z].*";
 
-    // TODO: переделать осознанно
     @Before(value = POINTCUT_REGISTER_NEW_USER)
     public void validateRegisterParams(UserRegistrationRequestDto payload) {
         String login = payload.getLogin();

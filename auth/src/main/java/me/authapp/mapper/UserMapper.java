@@ -7,6 +7,7 @@ import me.authapp.util.EncodeDecodeUtil;
 import me.authapp.util.TokenUtil;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
 @Mapper(componentModel = SPRING, imports = {EncodeDecodeUtil.class, TokenUtil.class, java.time.LocalDate.class})

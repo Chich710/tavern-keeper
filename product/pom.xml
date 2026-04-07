@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.10</version>
+        <version>3.5.13</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>me</groupId>
-    <artifactId>rent-apartment-app</artifactId>
+    <groupId>ru</groupId>
+    <artifactId>product</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>rent-app</name>
-    <description>rent-app</description>
+    <name>product</name>
+    <description>product</description>
     <url/>
     <licenses>
         <license/>
@@ -28,7 +28,6 @@
     </scm>
     <properties>
         <java.version>21</java.version>
-        <mapstruct.version>1.5.5.Final</mapstruct.version>
     </properties>
     <dependencies>
         <dependency>
@@ -55,11 +54,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-<dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -72,16 +66,6 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                        </path>
-                        <path>
-                            <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
-                            <version>${mapstruct.version}</version>
-                        </path>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok-mapstruct-binding</artifactId>
-                            <version>0.2.0</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

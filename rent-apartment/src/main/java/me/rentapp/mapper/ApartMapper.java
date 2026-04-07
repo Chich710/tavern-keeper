@@ -7,6 +7,7 @@ import me.rentapp.entity.AddressApartEntity;
 import me.rentapp.entity.ApartEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
 @Mapper(componentModel = SPRING, imports = java.time.LocalDate.class)
