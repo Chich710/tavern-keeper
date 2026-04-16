@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserService userService;
 
+    // TODO: испарвить данные в ответе
     @PostMapping("/register")
     public UserEntity register(@RequestBody UserRegistrationRequestDto payload) {
         return userService.register(payload);

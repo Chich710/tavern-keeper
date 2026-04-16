@@ -21,7 +21,7 @@ public class ProductClient {
     public List<DiscountDto> getDiscounts(DiscountRequestDto request) {
         return restTemplate.exchange(
                 BASE_URL + "/discount",
-                HttpMethod.POST,
+                HttpMethod.GET,
                 new HttpEntity<>(request),
                 new ParameterizedTypeReference<List<DiscountDto>>() {}
         ).getBody();
