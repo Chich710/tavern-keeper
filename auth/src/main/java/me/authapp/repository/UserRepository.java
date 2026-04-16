@@ -11,4 +11,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     @Query("SELECT u FROM UserEntity u WHERE u.login = :login")
     Optional<UserEntity> getByLogin(@Param("login") String login);
+
 }
