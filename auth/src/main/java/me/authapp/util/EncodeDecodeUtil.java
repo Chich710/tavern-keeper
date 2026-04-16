@@ -17,7 +17,7 @@ public class EncodeDecodeUtil {
         return new String(decoder.decode(encodedPassword), StandardCharsets.UTF_8);
     }
 
-    public static boolean checkPassword(String rawPassword, String encodedPassword) {
+    public static Boolean checkPassword(String rawPassword, String encodedPassword) {
         String decoded = decodePassword(encodedPassword);
 
         return decoded.equals(rawPassword);

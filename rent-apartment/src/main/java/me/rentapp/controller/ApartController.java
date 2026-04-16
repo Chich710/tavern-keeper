@@ -3,8 +3,10 @@ package me.rentapp.controller;
 import lombok.RequiredArgsConstructor;
 import me.rentapp.dto.ApartCreateRequestDto;
 import me.rentapp.dto.ApartResponseDto;
+import me.rentapp.dto.BookingRequestDto;
+import me.rentapp.dto.BookingResponseDto;
 import me.rentapp.service.ApartService;
-import me.rentapp.service.TestService;
+import me.rentapp.service.BookingService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,11 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/apart")
+@RequestMapping("/aparts")
 @RequiredArgsConstructor
 public class ApartController {
     private final ApartService apartService;
-    private final TestService testService;
+    private final BookingService bookingService;
 
     @PostMapping("/create")
     public ApartResponseDto create(@RequestBody ApartCreateRequestDto payload) {
@@ -30,8 +32,10 @@ public class ApartController {
         return apartService.getList();
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return testService.test();
+    @PostMapping("/book")
+    public BookingResponseDto createBooking(
+            @RequestBody BookingRequestDto request
+    ) {
+        return bookingService.createBooking(request);
     }
 }

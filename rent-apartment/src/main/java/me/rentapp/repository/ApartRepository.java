@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ApartRepository extends JpaRepository<ApartEntity, Long> {
+public interface ApartRepository extends JpaRepository<ApartEntity, Integer> {
     @Query("SELECT a FROM ApartEntity a LEFT JOIN a.addressApart")
     List<ApartEntity> getList();
 }
