@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ApartService {
     ApartResponseDto create(ApartCreateRequestDto payload);
-    List<ApartResponseDto> getList();
+    List<ApartResponseDto> getList(Double latitude, Double longitude, String city);
 }

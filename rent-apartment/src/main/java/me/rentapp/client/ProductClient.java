@@ -8,7 +8,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.List;
 
 @Component
@@ -21,7 +20,7 @@ public class ProductClient {
     public List<DiscountDto> getDiscounts(DiscountRequestDto request) {
         return restTemplate.exchange(
                 BASE_URL + "/discount",
-                HttpMethod.GET,
+                HttpMethod.POST,
                 new HttpEntity<>(request),
                 new ParameterizedTypeReference<List<DiscountDto>>() {}
         ).getBody();
