@@ -10,7 +10,8 @@ import java.util.List;
 
 @Repository
 public interface ApartRepository extends JpaRepository<ApartEntity, Integer> {
-    @Query("SELECT a FROM ApartEntity a LEFT JOIN a.addressApart addr " +
-            "WHERE :city IS NULL OR LOWER(addr.city) = LOWER(:city)")
+    @Query("SELECT a FROM ApartEntity a " +
+            "LEFT JOIN a.addressApart addr " +
+            "WHERE (CAST(:city AS string) IS NULL OR LOWER(addr.city) = LOWER(CAST(:city AS string)))")
     List<ApartEntity> getList(@Param("city") String city);
 }

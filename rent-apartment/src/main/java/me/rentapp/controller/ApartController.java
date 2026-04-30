@@ -30,11 +30,11 @@ public class ApartController {
 
     @GetMapping("/list")
     public List<ApartResponseDto> getList(
-            @RequestParam Double lat,
-            @RequestParam Double lon,
+            @RequestParam(required = false) Double latitude,
+            @RequestParam(required = false) Double longitude,
             @RequestParam(required = false) String city
     ) {
-        return apartService.getList(lat, lon, city);
+        return apartService.getList(latitude, longitude, city);
     }
 
     @PostMapping("/book")

@@ -19,20 +19,24 @@ public class IntegrationInfoService {
 
     @Cacheable(value = "integrationInfo", key = "'openCageUrl'")
     public String getOpenCageUrl() {
+
         return decode(loadByCode(OPEN_CAGE_CODE).getLink());
     }
 
     @Cacheable(value = "integrationInfo", key = "'openCageKey'")
     public String getOpenCageApiKey() {
+
         return decode(loadByCode(OPEN_CAGE_CODE).getApiKey());
     }
 
     private IntegrationInfoEntity loadByCode(String code) {
+
         return integrationInfoRepository.findByCode(code)
                 .orElseThrow(() -> new IllegalStateException("integration_info row not found for code: " + code));
     }
 
     private String decode(String value) {
+
         return new String(Base64.getDecoder().decode(value), StandardCharsets.UTF_8);
     }
 }

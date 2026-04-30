@@ -8,5 +8,11 @@ import java.util.List;
 @Getter
 @Setter
 public class OpenCageResponse {
-    private List<OpenCageResult> results;
+    private List<Result> results;
+
+    @Getter
+    @Setter
+    public static class Result {
+        private OpenCageComponents components;
+    }
 }

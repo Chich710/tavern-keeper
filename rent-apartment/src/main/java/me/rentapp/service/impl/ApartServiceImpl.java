@@ -8,7 +8,7 @@ import me.rentapp.entity.ApartEntity;
 import me.rentapp.mapper.ApartMapper;
 import me.rentapp.repository.ApartRepository;
 import me.rentapp.service.ApartService;
-import me.rentapp.service.LocalityExtractor;
+import me.rentapp.service.LocationExtractor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +20,7 @@ public class ApartServiceImpl implements ApartService {
     private final ApartRepository apartRepository;
     private final ApartMapper apartMapper;
     private final OpenCageClient openCageClient;
-    private final LocalityExtractor localityExtractor;
+    private final LocationExtractor locationExtractor;
 
     @Override
     @Transactional
@@ -42,11 +42,8 @@ public class ApartServiceImpl implements ApartService {
     }
 
     private String resolveCity(Double latitude, Double longitude, String city) {
-        if (city != null && !city.isBlank()) {
-            return city;
-        }
+        if (city != null && !city.isBlank()) { return city; }
 
-        return localityExtractor.extract(openCageClient.geocode(latitude, longitude))
-                .orElse(null);
+        return locationExtractor.extract(openCageClient.geocode(latitude, longitude)).orElse(null);
     }
 }
