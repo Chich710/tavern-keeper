@@ -40,14 +40,17 @@ public class BookingServiceImpl implements BookingService {
 
         Long activeBookings = bookingRepository.countActiveBookings(request.getUserId(), LocalDate.now());
 
+        // TODO: в отдельный метод, а лучше в маппер
         DiscountRequestDto discountRequest = new DiscountRequestDto();
         discountRequest.setCheckIn(request.getCheckIn());
         discountRequest.setCheckOut(request.getCheckOut());
         discountRequest.setUserAge(request.getUserAge());
         discountRequest.setActiveBookingsCount(activeBookings.intValue() + 1);
 
+        // TODO: исключения сделать
         List<DiscountDto> discounts = productClient.getDiscounts(discountRequest);
 
+        // TODO: проверка на null
         Integer totalDiscountPercent = Math.min(
                 discounts.stream().mapToInt(DiscountDto::getDiscountPercent).sum(),
                 80
