@@ -9,9 +9,9 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @Component
-public class LocationExtractor {
+public class LocationExtractorService {
 
-    private static final List<Function<OpenCageComponents, String>> NORMALIZED_CITY = List.of(
+    private final List<Function<OpenCageComponents, String>> NORMALIZED_CITY = List.of(
             OpenCageComponents::getCity,
             OpenCageComponents::getTown,
             OpenCageComponents::getTownship,

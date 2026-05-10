@@ -1,8 +1,8 @@
 package me.rentapp.client;
 
 import lombok.RequiredArgsConstructor;
+import me.rentapp.config.OpenCageProperties;
 import me.rentapp.dto.OpenCageResponse;
-import me.rentapp.service.IntegrationInfoService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -10,13 +10,13 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class OpenCageClient {
     private final RestTemplate restTemplate;
-    private final IntegrationInfoService integrationInfoService;
+    private final OpenCageProperties properties;
 
     public OpenCageResponse geocode(Double latitude, Double longitude) {
-        String url = integrationInfoService.getOpenCageUrl().formatted(
+        String url = properties.getUrl().formatted(
                 latitude,
                 longitude,
-                integrationInfoService.getOpenCageApiKey()
+                properties.getApiKey()
         );
 
         return restTemplate.getForObject(url, OpenCageResponse.class);
