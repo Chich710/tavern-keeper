@@ -23,8 +23,13 @@ public interface BookingMapper {
     @Mapping(target = "createdAt", expression = "java(LocalDate.now())")
     @Mapping(target = "updatedAt", expression = "java(LocalDate.now())")
     @Mapping(target = "deletedAt", ignore = true)
-    BookingEntity toBookingEntity(BookingRequestDto request, ApartEntity apartment,
-                                  Integer pricePerNight, Integer discountPercent, Integer totalPrice);
+    BookingEntity toBookingEntity(
+            BookingRequestDto request,
+            ApartEntity apartment,
+            int pricePerNight,
+            int discountPercent,
+            int totalPrice
+    );
 
     @Mapping(source = "booking.id", target = "id")
     @Mapping(source = "apartment.id", target = "apartmentId")
@@ -36,5 +41,8 @@ public interface BookingMapper {
     @Mapping(source = "booking.discountPercent", target = "discountPercent")
     @Mapping(source = "booking.totalPrice", target = "totalPrice")
     @Mapping(source = "booking.createdAt", target = "createdAt")
-    BookingResponseDto toBookingResponseDto(BookingEntity booking, ApartEntity apartment);
+    BookingResponseDto toBookingResponseDto(
+            BookingEntity booking,
+            ApartEntity apartment
+    );
 }

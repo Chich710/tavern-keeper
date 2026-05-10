@@ -12,7 +12,6 @@ import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
 @Mapper(componentModel = SPRING, imports = java.time.LocalDate.class)
 public interface ApartMapper {
-    // TODO: вопрос про цепочку вызовов маппера. Верно ли реализовал или нужно отдельные мапперы делать независимые?
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", expression = "java(LocalDate.now())")
     @Mapping(target = "updatedAt", expression = "java(LocalDate.now())")
@@ -31,7 +30,10 @@ public interface ApartMapper {
     @Mapping(source = "address.houseNumber", target = "houseNumber")
     @Mapping(source = "address.floor", target = "floor")
     @Mapping(source = "address.apartmentNumber", target = "apartmentNumber")
-    ApartResponseDto toApartResponseDto(ApartEntity apart, AddressApartEntity address);
+    ApartResponseDto toApartResponseDto(
+            ApartEntity apart,
+            AddressApartEntity address
+    );
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "apart", ignore = true)
