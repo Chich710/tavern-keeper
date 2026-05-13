@@ -9,15 +9,18 @@ import me.rentapp.dto.DiscountRequestDto;
 import me.rentapp.entity.ApartEntity;
 import me.rentapp.entity.BookingEntity;
 import me.rentapp.mapper.BookingMapper;
+import me.rentapp.mapper.DiscountMapper;
 import me.rentapp.repository.ApartRepository;
 import me.rentapp.repository.BookingRepository;
 import me.rentapp.service.BookingService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestClientException;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +29,7 @@ public class BookingServiceImpl implements BookingService {
     private final ApartRepository apartRepository;
     private final ProductClient productClient;
     private final BookingMapper bookingMapper;
+    private final DiscountMapper discountMapper;
 
     @Override
     @Transactional
@@ -33,32 +37,38 @@ public class BookingServiceImpl implements BookingService {
         ApartEntity apartment = apartRepository.findById(request.getApartmentId().intValue())
                 .orElseThrow(() -> new RuntimeException("Apartment not found: " + request.getApartmentId()));
 
-        Long nights = ChronoUnit.DAYS.between(request.getCheckIn(), request.getCheckOut());
+        long nights = ChronoUnit.DAYS.between(request.getCheckIn(), request.getCheckOut());
         if (nights <= 0) {
             throw new RuntimeException("Check out date must be after check in date");
         }
 
-        Long activeBookings = bookingRepository.countActiveBookings(request.getUserId(), LocalDate.now());
+        long activeBookings = bookingRepository.countActiveBookings(request.getUserId(), LocalDate.now());
 
-        // TODO: в отдельный метод, а лучше в маппер
-        DiscountRequestDto discountRequest = new DiscountRequestDto();
-        discountRequest.setCheckIn(request.getCheckIn());
-        discountRequest.setCheckOut(request.getCheckOut());
-        discountRequest.setUserAge(request.getUserAge());
-        discountRequest.setActiveBookingsCount(activeBookings.intValue() + 1);
+        int activeBookingsIncludingNew = (int) activeBookings + 1;
+        DiscountRequestDto discountRequest = discountMapper.toDiscountRequest(request, activeBookingsIncludingNew);
 
-        // TODO: исключения сделать
-        List<DiscountDto> discounts = productClient.getDiscounts(discountRequest);
+        List<DiscountDto> discounts;
+        try {
+            discounts = productClient.getDiscounts(discountRequest);
+        } catch (RestClientException e) {
+            throw new RuntimeException("Failed to fetch discounts from product service", e);
+        }
+        if (discounts == null) {
+            discounts = List.of();
+        }
 
-        // TODO: проверка на null
-        Integer totalDiscountPercent = Math.min(
-                discounts.stream().mapToInt(DiscountDto::getDiscountPercent).sum(),
+        int totalDiscountPercent = Math.min(
+                discounts.stream()
+                        .map(DiscountDto::getDiscountPercent)
+                        .filter(Objects::nonNull)
+                        .mapToInt(Integer::intValue)
+                        .sum(),
                 80
         );
 
-        Integer pricePerNight = apartment.getPricePerNight();
-        Integer baseTotal = pricePerNight * nights.intValue();
-        Integer totalPrice = baseTotal - (baseTotal * totalDiscountPercent / 100);
+        int pricePerNight = apartment.getPricePerNight();
+        int baseTotal = pricePerNight * (int) nights;
+        int totalPrice = baseTotal - (baseTotal * totalDiscountPercent / 100);
 
         BookingEntity booking = bookingMapper.toBookingEntity(request, apartment, pricePerNight, totalDiscountPercent, totalPrice);
         BookingEntity newBooking = bookingRepository.save(booking);
