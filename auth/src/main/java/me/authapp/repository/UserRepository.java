@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
@@ -12,4 +13,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query("SELECT u FROM UserEntity u WHERE u.login = :login")
     Optional<UserEntity> getByLogin(@Param("login") String login);
 
+    @Query("SELECT u FROM UserEntity u WHERE u.token IS NOT NULL")
+    List<UserEntity> findAllWithToken();
 }
